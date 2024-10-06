@@ -1,14 +1,15 @@
 // Define a function named 'add' that takes a parameter 'numbers'
 function add(numbers) {
     // Step 1: Return 0 for an empty string
-    if (numbers === "") return 0;
+    if (numbers === "") return 0; 
 
     // Step 2: Check for custom delimiter declaration
     let delimiter = ",";
     if (numbers.startsWith("//")) {
+        // The format for the custom delimiter is "//[delimiter]\n[numbers…]"
         const parts = numbers.split("\n");
         delimiter = parts[0].substring(2); // Get the custom delimiter after "//"
-        numbers = parts[1]; // Get the string containing the numbers
+        numbers = parts.slice(1).join("\n"); // Join remaining parts as they could contain numbers
     }
 
     // Step 3: Split numbers using the specified delimiter (including new lines)
