@@ -1,7 +1,7 @@
 // Define a function named 'add' that takes a parameter 'numbers'
 function add(numbers) {
     // Step 1: Return 0 for an empty string
-    if (numbers === "") return 0; 
+    if (numbers === "") return 0;
 
     // Step 2: Check for custom delimiter declaration
     let delimiter = ",";
@@ -14,10 +14,23 @@ function add(numbers) {
     // Step 3: Split numbers using the specified delimiter (including new lines)
     const nums = numbers.split(new RegExp(`[${delimiter}\n]`));
 
-    // Step 4: Convert strings to numbers and sum them
-    return nums.reduce((sum, num) => sum + (parseInt(num, 10) || 0), 0);
-}
+    // Step 4: Convert strings to numbers, handle negative numbers, and sum them
+    const negatives = []; // Array to hold negative numbers
+    const sum = nums.reduce((acc, num) => {
+        const parsedNum = parseInt(num, 10) || 0; // Parse the number
+        if (parsedNum < 0) {
+            negatives.push(parsedNum); // Store negative numbers
+        }
+        return acc + parsedNum; // Sum the numbers
+    }, 0);
 
+    // Step 5: Throw an error if there are negative numbers
+    if (negatives.length > 0) {
+        throw new Error("negative numbers not allowed: " + negatives.join(", "));
+    }
+
+    return sum; // Return the total sum
+}
 
 // Export the 'add' function as a module so it can be imported and used in other files
 module.exports = { add };

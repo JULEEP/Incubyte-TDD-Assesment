@@ -1,17 +1,35 @@
-// Import the 'add' function from the stringCalculator module
+// stringCalculator.test.js
+
 const { add } = require('../stringCalculator/stringCalculator');
 
-// Test case to check if the function returns 0 for an empty string
+// Test cases to verify functionality
 test('should return 0 for an empty string', () => {
-    expect(add("")).toBe(0); // Expect the output to be 0 when the input is an empty string
+    expect(add("")).toBe(0);
 });
 
-// Test case to check if the function returns 1 for the input "1"
 test('should return 1 for "1"', () => {
-    expect(add("1")).toBe(1); // Expect the output to be 1 when the input is "1"
+    expect(add("1")).toBe(1);
 });
 
-// Test case to check if the function correctly sums "1" and "5" to return 6
 test('should return 6 for "1,5"', () => {
-    expect(add("1,5")).toBe(6); // Expect the output to be 6 when the input is "1,5"
+    expect(add("1,5")).toBe(6);
+});
+
+// New test case for handling new lines
+test('should return 6 for "1\\n2,3"', () => {
+    expect(add("1\n2,3")).toBe(6);
+});
+
+// New test case for handling custom delimiters
+test('should return 3 for "//;\n1;2"', () => {
+    expect(add("//;\n1;2")).toBe(3); // Expect 1 + 2 = 3
+});
+
+// Test case for negative numbers
+test('should throw an error for negative numbers', () => {
+    expect(() => add("1,-2,3")).toThrow("negative numbers not allowed: -2");
+});
+
+test('should throw an error for multiple negative numbers', () => {
+    expect(() => add("1,-2,-3")).toThrow("negative numbers not allowed: -2, -3");
 });
