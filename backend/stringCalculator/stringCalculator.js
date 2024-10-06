@@ -1,0 +1,23 @@
+// Define a function named 'add' that takes a parameter 'numbers'
+function add(numbers) {
+    // Step 1: Return 0 for an empty string
+    if (numbers === "") return 0; 
+
+    // Step 2: Check for custom delimiter declaration
+    let delimiter = ",";
+    if (numbers.startsWith("//")) {
+        const parts = numbers.split("\n");
+        delimiter = parts[0].substring(2); // Get the custom delimiter after "//"
+        numbers = parts[1]; // Get the string containing the numbers
+    }
+
+    // Step 3: Split numbers using the specified delimiter (including new lines)
+    const nums = numbers.split(new RegExp(`[${delimiter}\n]`));
+
+    // Step 4: Convert strings to numbers and sum them
+    return nums.reduce((sum, num) => sum + (parseInt(num, 10) || 0), 0);
+}
+
+
+// Export the 'add' function as a module so it can be imported and used in other files
+module.exports = { add };
