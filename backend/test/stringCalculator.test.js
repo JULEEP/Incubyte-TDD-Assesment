@@ -1,5 +1,3 @@
-// stringCalculator.test.js
-
 const { add } = require('../stringCalculator/stringCalculator');
 
 // Test cases to verify functionality
